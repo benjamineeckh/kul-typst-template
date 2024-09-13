@@ -1,4 +1,4 @@
-= A title
+= Introduction
 #lorem(500)
 == a subtitle1
 #lorem(200)

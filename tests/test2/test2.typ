@@ -1,5 +1,6 @@
 #import "../../src/lib.typ": template
 
+
 #show: template.with(
   // Your title goes here
   title: "Doing some very fancy and complicated testing for some new and innovative thing",
@@ -38,7 +39,7 @@
     color: (background-color:(0, 0, 1, 0), text-color:black)
   ),
 
-  // Change to "nl" for the Dutch template
+  // Change to "it" for the Italian template
   lang: "en",
 
   // University logo
@@ -48,7 +49,7 @@
 
   // Hayagriva bibliography is the default one, if you want to use a
   // BibTeX file, pass a .bib file instead (e.g. "works.bib")
-  bibliography: bibliography("bib.yml"),
+  // bibliography: bibliography("bib.yml"),
 
   preface: lorem(200),
   abstract: lorem(500),
@@ -58,23 +59,5 @@
   keywords: none
 )
 
-// I suggest adding each chapter in a separate typst file under the
-// `chapters` directory, and then importing them here.
-
-// #include("sections/chapter1.typ")
-// #lorem(100)
-// = ty
-// #page(header: none, footer: none, numbering: none)[]
-#counter(page).update(1) // Needs to be here, otherwise will have wrong numbering!!!!!
-= Tables asdasds
-#lorem(500)
-= Aasdf
-#lorem(20)
-== V1
-#lorem(320)
-== V2
-#lorem(600)
-== asldkjads
-asdkjdlka
-=== aslkdjasd
-= test
+#lorem(100)
+= ty
