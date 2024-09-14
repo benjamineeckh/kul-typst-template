@@ -13,18 +13,26 @@
 ]
 #set heading(numbering: "1")
 
+#let a = context{
+  return here().page()
+}
+
 #heading(
     level: 1,
     numbering: none,
     outlined: true)[first]
 
 = A heading
-#lorem(50)
+#lorem(20)
+#pagebreak()
+#a
+#a.fields()
+
 = t
 #lorem(50)
-= t2
-// #context query(selector(<a>).after(here())).map(v => v.location().page())
-#lorem(50)
-#counter(page).update(1)
-= t33
-#lorem(50)
+// = t2
+// // #context query(selector(<a>).after(here())).map(v => v.location().page())
+// #lorem(50)
+// #counter(page).update(1)
+// = t33
+// #lorem(50)

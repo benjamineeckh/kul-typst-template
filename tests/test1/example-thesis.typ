@@ -11,20 +11,21 @@
   // "Master's Thesis", "PhD Thesis", etc.
   subtitle: "Master's Thesis",
 
-  // Change to your name and student number
+  // Change to the name(s) of the author(s)
   authors: (
-    (name: "john doe",
-    student_number: "r9808098"),
-    (name: "some other guy",
-    student_number: "r0485974395"),
+    (name: "john doe"),
+    (name: "some other guy"),
   ),
+
+  // Change to the name(s) of the promotor(s)
   promotors: ("A first guy", "some other guy"),
 
-  // Add as many co-supervisors as you need or remove the entry
+  // Add as many co-supervisors as you needthe entry
   // if none are needed
   evaluators: ("idk", "someone else"),
 
   // Change to your supervisor's name
+  // remove if none are needed
   supervisors: (
     "Some supervisor",
   ),
@@ -44,13 +45,16 @@
   // University logo
   logo: "../../../resources/logokuleng.svg",
 
+  // set to true to remove extra title-page and have normal margins
   electronic-version:true,
 
   // Hayagriva bibliography is the default one, if you want to use a
   // BibTeX file, pass a .bib file instead (e.g. "works.bib")
   bibliography: bibliography("bib.yml"),
 
+  // Preface text
   preface: lorem(200),
+  // Abstract text
   abstract: lorem(100),
 
   // Add as many keywords as you need, or remove the entry if none
@@ -71,3 +75,5 @@
 #lorem(320)
 == V2
 #lorem(600)
+= a
+a

@@ -18,5 +18,14 @@
     align(right)[_ #authors.map(v=>v.name).join("\n") _]
 
     pagebreak(weak: true)
+  }else{
+    let t = if lang == "nl"{
+      "PLAATSHOUDER VOOR VOORWOORD"
+    }else{
+      "PLACEHOLDER FOR PREFACE"
+    }
+    text(purple, size:3em)[#t]
+    set text(red)
+    lorem(200)
   }
 }

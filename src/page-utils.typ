@@ -1,10 +1,26 @@
 #import "packages.typ":hydra
+// needs context
+// Checks if a (level 1) heading is on the page
 #let heading-on-page() = {
   let hs = query(selector(<chapter-start-marker>).after(here())).map(v => v.location().page())
-  return hs.contains(counter(page).get().first())
+  return hs.contains(here().page())
 }
 
-// Configure the page and hydra settings
+// needs context
+// computes the actual page number for a page
+// I don't really like it, but it works
+#let get-page-number() = {
+  let body = locate(<start-of-body>).page()
+  let preamble = locate(<start-of-preamble>).page()
+  let num = if here().page() < body{
+    here().page() - preamble + 1
+  }else{
+    here().page() - body + 1
+  }
+  return int(num)
+}
+
+// Checks if a page was inserted
 #let page-is-inserted(loc) = {
   let pairs = state("chapter-markers").at(loc)
   if pairs == none { return false }
@@ -15,9 +31,10 @@
 }
 
 
-// Inserts 
+// needs context
+// heading generation, depends on if the page is even or odd
 #let hydra-settings = context {
-  if calc.even(counter(page).get().first()) {
+  if calc.even(get-page-number()) {
     let entry = hydra(skip-starting:true, 1)
     if entry != none{
       // [#entry.fields()]
@@ -56,6 +73,8 @@
     // #counter(page).get()]
 }
 
+// needs context
+// custom header, used in `set page(header:...)`
 #let custom-header = context {
   if not page-is-inserted(here()){
     [#hydra-settings]
@@ -64,17 +83,10 @@
     
 }
 // needs context
-// checks if the page is inserted, then adds numbering if not
+// custom footer, used in `set page(footer:...)`
 #let custom-footer = context {
   if not page-is-inserted(here()) {
-
-    let body = locate(<start-of-body>).page()
-    let preamble = locate(<start-of-preamble>).page()
-    let num = if here().page() < body{
-      here().page() - preamble + 1
-    }else{
-      here().page() - body + 1
-    }
+    let num = get-page-number()
     let dir = if calc.odd(int(num)){
       right
     }else{

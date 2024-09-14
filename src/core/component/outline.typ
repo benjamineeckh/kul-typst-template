@@ -1,7 +1,8 @@
-#let insert-outline(non-odd-page-headers) = {
+#let insert-outline(non-odd-page-headers, lang: "en") = {
   // Table of contents
   // Outline customization
   let outline-color = red.darken(10%)
+  // let outline-color = black
   
   show outline.entry: it => {
     link(it.element.location(), text(outline-color)[#it.body])
@@ -28,6 +29,11 @@
     it.page
   }
   show outline: set heading(numbering:none, outlined: false)
-  outline(depth: 2, indent: true, fill:repeat("  .  "))
+  let title = if lang == "nl"{
+    "Inhoudsopgave"
+  }else{
+    "Contents"
+  }
+  outline(title: title, depth: 2, indent: true, fill:repeat("  .  "))
   pagebreak(weak: true)
 }

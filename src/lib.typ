@@ -23,7 +23,7 @@
   academic-year: [2023/2024],
 
   // Your thesis subtitle, should be something along the lines of
-  // "Bachelor's Thesis", "Tesi di Laurea Triennale" etc.
+  // "Bachelor's Thesis", "bachelorproef" etc.
   subtitle: [Master's Thesis],
 
   // The paper size, refer to https://typst.app/docs/reference/layout/page/#parameters-paper for all the available options
@@ -78,7 +78,7 @@
   // The thesis' content
   body
 ) = {
-  let non-odd-page-headers = ("Declaration of Originality", "Declaratie van originaliteit", "Preface", "Voorwoord", "Abstract", "Samenvatting", "Nomenclature", "Lijst Van Symbolen", "Contents","List of Abbreviations and Symbols", "List of Figures and Tables")
+  let non-odd-page-headers = ("Declaration of Originality", "Declaratie van originaliteit", "Preface", "Voorwoord", "Abstract", "Samenvatting", "Nomenclature", "Lijst Van Symbolen", "Contents","List of Abbreviations and Symbols", "List of Figures and Tables", "Bibliography", "Bibliografie")
 
 
   set page(paper: paper-size, margin: (top: 10em),  header: page-utils.custom-header)
@@ -98,6 +98,9 @@
   // Configure lists and enumerations.
   set enum(indent: 10pt, body-indent: 9pt)
   set list(indent: 10pt, body-indent: 9pt, marker: ([•], [--]))
+
+
+  /////////////////////////// Heading config
   // Configure headings
   set heading(numbering: "1.1.1")
   show heading.where(level: 1): it => [
@@ -109,10 +112,12 @@
     #block[
     #v(15.55%) // kinda ass offset, but this is now the same as the latex one    Should really check the latex source code
     #if not non-odd-page-headers.contains(it.body.text){
+      // This works because the level is 1
       [Chapter #counter(heading).get().first()]
 
     }
     #v(6%)
+    // Needed because we need to know where the actual body of the text begins
     #let lab = if counter(heading).get().len() == 1 and counter(heading).get().first() == 1{
       <start-of-body>
     }
@@ -138,6 +143,7 @@
     #it.body
   ]
 
+  /////////////////////////// page chapter metadata
   context {
   let chapter-end-markers = query(<chapter-end-marker>)
   let chapter-start-markers = query(<chapter-start-marker>)
@@ -151,22 +157,22 @@
   }
 
 
-  /////////////////////// actual content
-  // Title page
+  /////////////////////////// actual content
+  // Print cover page
   if not electronic-version{
     insert-cover-page(title,authors, promotors, evaluators, supervisors, academic-year, submission-text, logo:logo, affiliation:affiliation,cover:true, lang:lang)
   }
+  // Actual cover page
   insert-cover-page(title,authors, promotors, evaluators, supervisors, academic-year, submission-text, logo:logo, affiliation:affiliation,cover:false, lang:lang)
+
   // Copyright
   insert-copyright(copyright)
   set page(footer: page-utils.custom-footer)
 
   // Declaration of originality, prints in English or Dutch
-  // depending on the `lang` parameter
   insert-dec-of-orig(declaration-of-originality)
 
-  // counter(page).update(1)
-
+  // custom numbering because KUL
   set page(numbering: (num, ..) => {
     let body = locate(<start-of-body>).page()
     let preamble = locate(<start-of-preamble>).page()
@@ -179,25 +185,18 @@
     }
   })
 
+  // Preface
   insert-preface(preface, authors, lang:lang)
-
+  // Outline
   insert-outline(non-odd-page-headers)
   // Abstract
   insert-abstract(abstract, lang:lang)
   // Keywords
   insert-keywords(keywords, lang:lang)
-  // pagebreak(weak: true)
 
-  // reset page numbering to 1
-  // counter(page).update(1)
-  set align(top + left)
-  // counter(page).update(1)
-  // [#context query(<chapter-start-marker>).map(v => v.location().page())]
-  // [#context locate(<start-of-body>).page()]
+  // set align(top + left)
 
-  // block[#sym.zws#label("start-of-preamble")]
-  // v(-1em)
   body
-
-  // insert-bibliography(bibliography, lang:lang)
+  pagebreak(weak: true)
+  insert-bibliography(bibliography, lang:lang)
 }

@@ -1,5 +1,5 @@
+#import "../../page-utils.typ"
 #let insert-abstract(abstract, lang:"en") = context {
-  if abstract != none {
   heading(
     level: 1,
     numbering: none,
@@ -10,9 +10,19 @@
       "Samenvatting"
     }
   )
+  if abstract != none {
   abstract
-  context if calc.odd(here().page()){
+  if calc.odd(page-utils.get-page-number()){
     page(header:none, footer:none, numbering:none)[]
   }
+  }else{
+    let t = if lang == "nl"{
+      "PLAATSHOUDER VOOR SAMENVATTING"
+    }else{
+      "PLACEHOLDER FOR ABSTRACT"
+    }
+    text(purple, size:3em)[#t]
+    set text(red)
+    lorem(200)
   }
 }
