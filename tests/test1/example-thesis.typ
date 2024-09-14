@@ -51,21 +51,18 @@
   bibliography: bibliography("bib.yml"),
 
   preface: lorem(200),
-  abstract: lorem(500),
+  abstract: lorem(100),
 
   // Add as many keywords as you need, or remove the entry if none
   // are needed
   keywords: none
 )
+// Needs to be here, otherwise will have wrong numbering!!!!!
 
 // I suggest adding each chapter in a separate typst file under the
 // `chapters` directory, and then importing them here.
-
-// #include("sections/chapter1.typ")
-// #lorem(100)
-// = ty
-// #page(header: none, footer: none, numbering: none)[]
-#counter(page).update(1) // Needs to be here, otherwise will have wrong numbering!!!!!
+// #context locate(<start-of-body>).page()
+#include("sections/chapter1.typ")
 = Tables asdasds
 #lorem(500)
 = Aasdf
@@ -74,7 +71,3 @@
 #lorem(320)
 == V2
 #lorem(600)
-== asldkjads
-asdkjdlka
-=== aslkdjasd
-= test

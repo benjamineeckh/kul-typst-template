@@ -78,7 +78,7 @@
   // The thesis' content
   body
 ) = {
-  let non-odd-page-headers = ("Declaration of Originality", "Declaratie van originaliteit", "Preface", "Voorwoord", "Abstract", "Samenvatting", "Nomenclature", "Lijst Van Symbolen", "Bibliography", "Bibliografie", "Contents","List of Abbreviations and Symbols", "List of Figures and Tables")
+  let non-odd-page-headers = ("Declaration of Originality", "Declaratie van originaliteit", "Preface", "Voorwoord", "Abstract", "Samenvatting", "Nomenclature", "Lijst Van Symbolen", "Contents","List of Abbreviations and Symbols", "List of Figures and Tables")
 
 
   set page(paper: paper-size, margin: (top: 10em),  header: page-utils.custom-header)
@@ -102,7 +102,7 @@
   set heading(numbering: "1.1.1")
   show heading.where(level: 1): it => [
     #[] <chapter-end-marker> // marker positioned before the pagebreak
-    #if not non-odd-page-headers.contains(it.body.text) and not (counter(heading).get().first() == 1 and counter(heading).get().len() == 1){
+    #if not non-odd-page-headers.contains(it.body.text){
       pagebreak(to: "odd", weak: true)
     }
   
@@ -114,13 +114,13 @@
     }
     #v(6%)
     #let lab = if counter(heading).get().len() == 1 and counter(heading).get().first() == 1{
-      <start-of-doc>
+      <start-of-body>
     }
     #block(width: 100%, height: 7%)[
       #set text(1.45em, weight: "bold")
       #it.body
       
-    ] #lab
+    ]#lab
     ]<chapter-start-marker>
   ]
 
@@ -159,13 +159,25 @@
   insert-cover-page(title,authors, promotors, evaluators, supervisors, academic-year, submission-text, logo:logo, affiliation:affiliation,cover:false, lang:lang)
   // Copyright
   insert-copyright(copyright)
-  set page(footer: page-utils.custom-footer-i, numbering: "i")
+  set page(footer: page-utils.custom-footer)
 
   // Declaration of originality, prints in English or Dutch
   // depending on the `lang` parameter
   insert-dec-of-orig(declaration-of-originality)
 
-  counter(page).update(1)
+  // counter(page).update(1)
+
+  set page(numbering: (num, ..) => {
+    let body = locate(<start-of-body>).page()
+    let preamble = locate(<start-of-preamble>).page()
+    // let body = 7
+    let pat = if num < body{ "i" } else { "1" }
+    if num < body{
+      numbering(pat, num - preamble + 1)
+    }else{
+      numbering(pat, num - body + 1)
+    }
+  })
 
   insert-preface(preface, authors, lang:lang)
 
@@ -178,10 +190,14 @@
 
   // reset page numbering to 1
   // counter(page).update(1)
-  set page(footer: page-utils.custom-footer-num, numbering: "1")
   set align(top + left)
-  
+  // counter(page).update(1)
+  // [#context query(<chapter-start-marker>).map(v => v.location().page())]
+  // [#context locate(<start-of-body>).page()]
+
+  // block[#sym.zws#label("start-of-preamble")]
+  // v(-1em)
   body
 
-  insert-bibliography(bibliography, lang:lang)
+  // insert-bibliography(bibliography, lang:lang)
 }

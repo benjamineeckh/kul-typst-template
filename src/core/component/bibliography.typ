@@ -1,9 +1,7 @@
 
+// Bibliography
 #let insert-bibliography(bib, lang:"en") = {
-  // let std-bibliography = bibliography
-  // Bibliography
   if bib != none {
-    // pagebreak(to: "odd")
     heading(
       level: 1,
       numbering: none,

@@ -2,27 +2,67 @@
 #let get-start-of-text() = {
   query(<start-of-doc>).first().location().page()
 }
-#let custom-numbering(number) = {
-  return if int(number) < get-start-of-text(){
-    numbering("i", int(number))
-  }else{
-    numbering("1", int(number))
+#import "@preview/hydra:0.5.1": hydra
+#set page(paper:"a7")
+#show heading.where(level:1): it => {
+  pagebreak(weak: true, to: "odd")
+  block[
+  #v(2em)<chapter-start-marker>
+  #it
+
+  ]
+}
+#let heading-on-page() = {
+  let hs = query(selector(<chapter-start-marker>).after(here())).map(v => v.location().page())
+  return hs.contains(here().page())
+}
+#let hydra-settings = context {
+  if calc.even(here().page()) {
+    let entry = hydra(skip-starting:true, 1)
+    if entry != none{
+      // [#entry.fields()]
+      entry = if entry.has("text"){
+        entry.text
+      }else{
+        entry.children.first() + [. ] + entry.children.last()
+      }
+      // align(left)[#smallcaps()]
+      align(left)[#smallcaps(entry)]
+      v(-0.8em)
+      line(length: 100%)
+    }
+  } else {
+    if not heading-on-page(){
+      let entry = hydra(2)
+      if entry == none{
+        entry = hydra(1)
+      }
+      if entry != none{
+        entry = if entry.has("text"){
+        entry.text
+      }else{
+        entry.children.first() + [. ] + entry.children.last()
+      }
+        align(right)[#smallcaps(entry)]
+        v(-0.8em)
+        line(length: 100%)
+      }
+    }
+    // [#heading-on-page()]
   }
 }
 
-#set page(paper:"a7")
-#show outline.entry.where(
-  level: 1
-): it => context {
-  [#it.body] + box(width: 1fr)[#it.fill] + custom-numbering(it.page.text)
-  }
-#outline()
-= a
-#pagebreak()
-= b
-#pagebreak()
-#pagebreak()
+#set page(header: context hydra-settings)
+// #outline()
+// = a
+// #pagebreak()
+// = b
+// #pagebreak()
+// #pagebreak()
 
-= c <start-of-doc>
+// = c <start-of-doc>
 
-== test
+// == test
+
+
+#include "as.typ"

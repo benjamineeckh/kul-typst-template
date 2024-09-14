@@ -11,7 +11,9 @@
         "Voorwoord"
       }
     )
-    preface
+    block[#sym.zws#label("start-of-preamble")]
+    v(-1em)
+    preface 
 
     align(right)[_ #authors.map(v=>v.name).join("\n") _]
 

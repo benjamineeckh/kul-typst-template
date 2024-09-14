@@ -7,7 +7,9 @@
 == a subtitle3
 #lorem(200)
 == a subtitle3
+
 #lorem(200)
+
 = another main title
 == and directly a subtitle
 #lorem(700)

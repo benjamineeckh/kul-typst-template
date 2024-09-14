@@ -1,7 +1,7 @@
-#import "packages.typ":*
+#import "packages.typ":hydra
 #let heading-on-page() = {
   let hs = query(selector(<chapter-start-marker>).after(here())).map(v => v.location().page())
-  return hs.contains(here().page())
+  return hs.contains(counter(page).get().first())
 }
 
 // Configure the page and hydra settings
@@ -15,9 +15,9 @@
 }
 
 
-
+// Inserts 
 #let hydra-settings = context {
-  if calc.even(here().page()) {
+  if calc.even(counter(page).get().first()) {
     let entry = hydra(skip-starting:true, 1)
     if entry != none{
       // [#entry.fields()]
@@ -33,7 +33,7 @@
     }
   } else {
     if not heading-on-page(){
-      let entry = hydra(2)
+      let entry = hydra(2, skip-starting:false)
       if entry == none{
         entry = hydra(1)
       }
@@ -49,6 +49,11 @@
       }
     }
   }
+    // [#query(<chapter-start-marker>).map(v => v.location().page())
+    
+    // #here().page()
+    
+    // #counter(page).get()]
 }
 
 #let custom-header = context {
@@ -58,51 +63,24 @@
   // [#here().page()]
     
 }
-
-
+// needs context
+// checks if the page is inserted, then adds numbering if not
 #let custom-footer = context {
   if not page-is-inserted(here()) {
-    let pat = if here().page() < locate(<start-of-doc>).page(){
-      "i"
-    }else{
-      "1"
-    }
-    if calc.odd(counter(page).get().first()){
-      align(right, counter(page).display(pat));
-    }else{
-      align(left, counter(page).display(pat));
-    }
-  }
-}
 
-#let custom-footer-num = context {
-  if not page-is-inserted(here()) {
-    if calc.odd(counter(page).get().first()){
-      align(right, counter(page).display("1"));
+    let body = locate(<start-of-body>).page()
+    let preamble = locate(<start-of-preamble>).page()
+    let num = if here().page() < body{
+      here().page() - preamble + 1
     }else{
-      align(left, counter(page).display("1"));
+      here().page() - body + 1
     }
-  }
-}
-#let custom-footer-i = context {
-  if not page-is-inserted(here()) {
-    if calc.odd(counter(page).get().first()){
-      align(right, counter(page).display("i"));
+    let dir = if calc.odd(int(num)){
+      right
     }else{
-      align(left, counter(page).display("i"));
+      left
     }
+    let num = here().page-numbering()(here().page())
+    align(dir, num)
   }
-}
-
-  // queries markers and updates state with pairwise pages for each chapter
-#let generate-markers = context {
-  let chapter-end-markers = query(label("chapter-end-marker"))
-  let chapter-start-markers = query(<chapter-start-marker>)
-  let pairs = chapter-end-markers.enumerate().map(((index, chapter-end-marker)) => {
-    let chapter-start-marker = chapter-start-markers.at(index)
-    let end-page = chapter-end-marker.location().page()
-    let start-page = chapter-start-marker.location().page()
-    (end-page, start-page)
-  })
-  state("chapter-markers").update(pairs)
 }
