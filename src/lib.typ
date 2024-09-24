@@ -8,8 +8,9 @@
 
 // This is a template adapted from:
 // https://typst.app/universe/package/modern-unito-thesis
-// Made by
-// Eduard Antonovic Occhipinti
+// Made by Eduard Antonovic Occhipinti
+//
+// Adaptation made by Benjamin Eeckhout
 
 
 // FIXME: workaround for the lack of `std` scope
@@ -20,7 +21,7 @@
   title: [Thesis Title],
 
   // The academic year you're graduating in
-  academic-year: [2023/2024],
+  academic-year: (2023),
 
   // Your thesis subtitle, should be something along the lines of
   // "Bachelor's Thesis", "bachelorproef" etc.
@@ -32,7 +33,7 @@
   // authors's informations. You should specify a `name` key
   authors: (),
 
-  // The thesis' promotor
+  // Array with the thesis' promotor(s)
   promotors: (),
 
   // An array of the thesis' evaluators.
@@ -45,7 +46,12 @@
 
   // An affiliation dictionary, you should specify a `university`
   // keyword, `school` keyword and a `degree` keyword
-  affiliation: (),
+  affiliation: (
+    color: (1,0,0,0), 
+    faculty: "politics", 
+    degree: "bidenomics", 
+    elective: "Trumpism"
+  ),
 
   // Set to "it" for the italian template
   lang: "en",
@@ -81,7 +87,7 @@
   let non-odd-page-headers = ("Declaration of Originality", "Declaratie van originaliteit", "Preface", "Voorwoord", "Abstract", "Samenvatting", "Nomenclature", "Lijst Van Symbolen", "Contents","List of Abbreviations and Symbols", "List of Figures and Tables", "Bibliography", "Bibliografie")
 
 
-  set page(paper: paper-size, margin: (top: 10em),  header: page-utils.custom-header)
+  set page(paper: paper-size, margin: (top: 10em),  header: context page-utils.custom-header())
   
   // Set document matadata.
   set document(title: title, author: authors.map(v=>v.name))
@@ -105,7 +111,7 @@
   set heading(numbering: "1.1.1")
   show heading.where(level: 1): it => [
     #[] <chapter-end-marker> // marker positioned before the pagebreak
-    #if not non-odd-page-headers.contains(it.body.text){
+    #if not non-odd-page-headers.contains(it.body.text) and not counter(heading).get().first() == 1{
       pagebreak(to: "odd", weak: true)
     }
   
@@ -118,7 +124,7 @@
     }
     #v(6%)
     // Needed because we need to know where the actual body of the text begins
-    #let lab = if counter(heading).get().len() == 1 and counter(heading).get().first() == 1{
+    #let lab = if counter(heading).get().first() == 1{
       <start-of-body>
     }
     #block(width: 100%, height: 7%)[
@@ -160,14 +166,14 @@
   /////////////////////////// actual content
   // Print cover page
   if not electronic-version{
-    insert-cover-page(title,authors, promotors, evaluators, supervisors, academic-year, submission-text, logo:logo, affiliation:affiliation,cover:true, lang:lang)
+    insert-cover-page(title,authors, promotors, evaluators, supervisors, academic-year, submission-text, affiliation, logo:logo,cover:true, lang:lang)
   }
   // Actual cover page
-  insert-cover-page(title,authors, promotors, evaluators, supervisors, academic-year, submission-text, logo:logo, affiliation:affiliation,cover:false, lang:lang)
+  insert-cover-page(title,authors, promotors, evaluators, supervisors, academic-year, submission-text, affiliation, logo:logo,cover:false, lang:lang)
 
   // Copyright
   insert-copyright(copyright)
-  set page(footer: page-utils.custom-footer)
+  set page(footer: context page-utils.custom-footer())
 
   // Declaration of originality, prints in English or Dutch
   insert-dec-of-orig(declaration-of-originality)
@@ -193,6 +199,9 @@
   insert-abstract(abstract, lang:lang)
   // Keywords
   insert-keywords(keywords, lang:lang)
+  // context if calc.odd(page-utils.get-page-number()){
+  //   page(footer: none, header: none, numbering: none)[]
+  // }
 
   // set align(top + left)
 

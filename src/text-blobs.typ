@@ -8,7 +8,7 @@
 )
 #let submission-text(degree, elective) = (
   "en": [
-    Thesis submitte as part of the degree Master of Science: #degree, with elective #elective
+    Thesis submitte as part of the degree Master of Engineering Science: #degree, with elective #elective
   ],
   "nl" : [
     Thesis voorgedragen tot het behalen van de graad van Master of Science in de ingenieurswetenschappen: #degree, hoofdoptie #elective

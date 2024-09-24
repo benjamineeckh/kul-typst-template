@@ -20,6 +20,7 @@
   return int(num)
 }
 
+// needs context
 // Checks if a page was inserted
 #let page-is-inserted(loc) = {
   let pairs = state("chapter-markers").at(loc)
@@ -33,7 +34,7 @@
 
 // needs context
 // heading generation, depends on if the page is even or odd
-#let hydra-settings = context {
+#let hydra-settings() = {
   if calc.even(get-page-number()) {
     let entry = hydra(skip-starting:true, 1)
     if entry != none{
@@ -70,21 +71,21 @@
     
     // #here().page()
     
-    // #counter(page).get()]
+    // #get-page-number()]
 }
 
 // needs context
 // custom header, used in `set page(header:...)`
-#let custom-header = context {
+#let custom-header() = {
   if not page-is-inserted(here()){
-    [#hydra-settings]
+    [#hydra-settings()]
   }
   // [#here().page()]
     
 }
 // needs context
 // custom footer, used in `set page(footer:...)`
-#let custom-footer = context {
+#let custom-footer() = {
   if not page-is-inserted(here()) {
     let num = get-page-number()
     let dir = if calc.odd(int(num)){

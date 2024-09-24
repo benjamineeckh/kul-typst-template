@@ -12,9 +12,7 @@
   )
   if abstract != none {
   abstract
-  if calc.odd(page-utils.get-page-number()){
-    page(header:none, footer:none, numbering:none)[]
-  }
+  pagebreak(weak: true)
   }else{
     let t = if lang == "nl"{
       "PLAATSHOUDER VOOR SAMENVATTING"
@@ -24,5 +22,6 @@
     text(purple, size:3em)[#t]
     set text(red)
     lorem(200)
+    pagebreak(weak: true)
   }
 }

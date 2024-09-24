@@ -30,14 +30,13 @@
     "Some supervisor",
   ),
 
-  // Customize with your own school and degree
-  affiliation: (
-    university: "KU Leuven",
-    school: "Master in Engineering science",
-    degree: "Computer science",
-    elective: "Software engineering",
-    color: (background-color:(0, 0, 1, 0), text-color:black)
-  ),
+  // Customize with your own faculty and degree
+  // affiliation: (
+  //   faculty: "Master in Engineering science",
+  //   degree: "Computer science",
+  //   elective: "Software engineering",
+  //   color: (0, 0, 1, 0)
+  // ),
 
   // Change to "nl" for the Dutch template
   lang: "en",
@@ -46,7 +45,7 @@
   logo: "../../../resources/logokuleng.svg",
 
   // set to true to remove extra title-page and have normal margins
-  electronic-version:true,
+  electronic-version:false,
 
   // Hayagriva bibliography is the default one, if you want to use a
   // BibTeX file, pass a .bib file instead (e.g. "works.bib")
@@ -59,21 +58,14 @@
 
   // Add as many keywords as you need, or remove the entry if none
   // are needed
-  keywords: none
+  keywords: lorem(20)
 )
-// Needs to be here, otherwise will have wrong numbering!!!!!
 
+// Insert an empty page if the preamble (pages with a "i" numbering) end on an uneven page.
+// This does not currently work yet automatically (comment if not needed)
+// #page(footer: none, header: none, numbering: none)[]
 // I suggest adding each chapter in a separate typst file under the
 // `chapters` directory, and then importing them here.
-// #context locate(<start-of-body>).page()
+
 #include("sections/chapter1.typ")
-= Tables asdasds
-#lorem(500)
-= Aasdf
-#lorem(20)
-== V1
-#lorem(320)
-== V2
-#lorem(600)
-= a
-a
+#include "sections/chapter2.typ"

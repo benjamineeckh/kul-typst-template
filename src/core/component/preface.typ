@@ -27,5 +27,6 @@
     text(purple, size:3em)[#t]
     set text(red)
     lorem(200)
+    pagebreak(weak: true)
   }
 }
