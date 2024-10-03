@@ -35,5 +35,4 @@
     "Contents"
   }
   outline(title: title, depth: 2, indent: true, fill:repeat("  .  "))
-  pagebreak(weak: true)
 }

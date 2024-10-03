@@ -45,7 +45,7 @@
   logo: "../../../resources/logokuleng.svg",
 
   // set to true to remove extra title-page and have normal margins
-  electronic-version:false,
+  electronic-version:true,
 
   // Hayagriva bibliography is the default one, if you want to use a
   // BibTeX file, pass a .bib file instead (e.g. "works.bib")
@@ -54,11 +54,13 @@
   // Preface text
   preface: lorem(200),
   // Abstract text
-  abstract: lorem(100),
+  abstract: lorem(400),
 
   // Add as many keywords as you need, or remove the entry if none
   // are needed
-  keywords: lorem(20)
+  // keywords: lorem(20)
+
+  // pre-body-page:true,
 )
 
 // Insert an empty page if the preamble (pages with a "i" numbering) end on an uneven page.
@@ -66,6 +68,5 @@
 // #page(footer: none, header: none, numbering: none)[]
 // I suggest adding each chapter in a separate typst file under the
 // `chapters` directory, and then importing them here.
-
 #include("sections/chapter1.typ")
 #include "sections/chapter2.typ"

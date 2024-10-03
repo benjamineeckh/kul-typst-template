@@ -12,6 +12,5 @@
       }
     )
     keywords
-    pagebreak(weak: true)
   }
 }

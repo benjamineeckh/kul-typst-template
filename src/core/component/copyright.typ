@@ -15,5 +15,4 @@
     ]
   v(7%)
   }
-  pagebreak(weak: true)
 }

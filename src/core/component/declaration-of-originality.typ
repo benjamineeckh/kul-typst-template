@@ -11,6 +11,5 @@
     }
   )
   text(style: "italic", declaration-of-originality.at(lang))
-  pagebreak(weak: true)
   }
 }

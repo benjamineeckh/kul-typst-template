@@ -81,6 +81,9 @@
   // The thesis' keywords, can be left empty if not needed
   keywords: none,
 
+  // if there should be a blank page before the body (to be manually checked), otherwise results in non-convergence (should be done if there are headers and footers on the page before the body)
+  pre-body-page: false,
+
   // The thesis' content
   body
 ) = {
@@ -110,29 +113,9 @@
   // Configure headings
   set heading(numbering: "1.1.1")
   show heading.where(level: 1): it => [
-    #[] <chapter-end-marker> // marker positioned before the pagebreak
-    #if not non-odd-page-headers.contains(it.body.text) and not counter(heading).get().first() == 1{
-      pagebreak(to: "odd", weak: true)
-    }
-  
-    #block[
-    #v(15.55%) // kinda ass offset, but this is now the same as the latex one    Should really check the latex source code
-    #if not non-odd-page-headers.contains(it.body.text){
-      // This works because the level is 1
-      [Chapter #counter(heading).get().first()]
-
-    }
-    #v(6%)
-    // Needed because we need to know where the actual body of the text begins
-    #let lab = if counter(heading).get().first() == 1{
-      <start-of-body>
-    }
-    #block(width: 100%, height: 7%)[
-      #set text(1.45em, weight: "bold")
-      #it.body
-      
-    ]#lab
-    ]<chapter-start-marker>
+    #pagebreak(weak: true)
+    #set text(1.2em, weight: "bold")
+    #it
   ]
 
 
@@ -202,9 +185,43 @@
   // context if calc.odd(page-utils.get-page-number()){
   //   page(footer: none, header: none, numbering: none)[]
   // }
+  if pre-body-page{
+  page(header: none, footer: none, numbering: none)[]
+  }
+
+  // Set markers for annoying transition between abstract and actual text
+  // [<chapter-end-marker>] // marker positioned before the pagebreak
+  // pagebreak(to: "odd", weak: true)
+  // [<chapter-start-marker>]
 
   // set align(top + left)
+  // context state("chapter-markers").get()
+  // set headings to update correctly
+  show heading.where(level: 1): it => [
+    #[] <chapter-end-marker> // marker positioned before the pagebreak
+    // #if not non-odd-page-headers.contains(it.body.text) and not counter(heading).get().first() == 1{
+      #pagebreak(to: "odd", weak: true)
+    // }
+  
+    #block[
+    #v(15.55%) // kinda ass offset, but this is now the same as the latex one    Should really check the latex source code (I don't understand latex syntax it is arcane magic)
+    // #if not non-odd-page-headers.contains(it.body.text){
+      // This is correct because the level is 1
+      Chapter #counter(heading).get().first()
 
+    // }
+    #v(6%)
+    // Needed because we need to know where the actual body of the text begins
+    #let lab = if counter(heading).get().first() == 1{
+      <start-of-body>
+    }
+    #block(width: 100%, height: 7%)[
+      #set text(1.45em, weight: "bold")
+      #it.body
+      
+    ]#lab
+    ]<chapter-start-marker>
+  ]
   body
   pagebreak(weak: true)
   insert-bibliography(bibliography, lang:lang)
