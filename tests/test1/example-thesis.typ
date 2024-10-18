@@ -5,17 +5,14 @@
   title: "Doing some very fancy and complicated testing for some new and innovative thing",
 
   // Give or only the year you started in (eg: 2024), or a tuple with the start and end year (eg: (2024, 2040))
-  academic-year: 2023,
+  academic-year: (2023, 2024),
 
   // Change to the correct subtitle, i.e. "Tesi di Laurea Triennale",
   // "Master's Thesis", "PhD Thesis", etc.
-  subtitle: "Master's Thesis",
+  // subtitle: "Master's Thesis",
 
   // Change to the name(s) of the author(s)
-  authors: (
-    (name: "john doe"),
-    (name: "some other guy"),
-  ),
+  authors: ("john doe", "and some"),
 
   // Change to the name(s) of the promotor(s)
   promotors: ("A first guy", "some other guy"),
@@ -31,12 +28,11 @@
   ),
 
   // Customize with your own faculty and degree
-  // affiliation: (
-  //   faculty: "Master in Engineering science",
-  //   degree: "Computer science",
-  //   elective: "Software engineering",
-  //   color: (0, 0, 1, 0)
-  // ),
+  affiliation: (
+    elective: "Software engineering",
+    degree: "Computer science",
+    color: (0, 0, 1, 0)
+  ),
 
   // Change to "nl" for the Dutch template
   lang: "en",

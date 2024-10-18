@@ -1,6 +1,7 @@
 #import "packages.typ":hydra
 // needs context
-// Checks if a (level 1) heading is on the page
+/// Checks if a (level 1) heading is on the page
+/// -> bool
 #let heading-on-page() = {
   let hs = query(selector(<chapter-start-marker>).after(here())).map(v => v.location().page())
   return hs.contains(here().page())

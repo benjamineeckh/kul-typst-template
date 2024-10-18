@@ -52,7 +52,7 @@
       v(30%)  
       text(2.3em, weight: 500, title)
       v(4%)
-      text(1.5em, weight: 500, authors.map(v=>v.name).join("\n"))
+      text(1.5em, weight: 500, authors.join("\n"))
       v(8%)
       set align(right)
       // promotors, evaluators, supervisors

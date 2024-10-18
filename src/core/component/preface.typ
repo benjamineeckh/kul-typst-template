@@ -14,8 +14,12 @@
     block[#sym.zws#label("start-of-preamble")]
     v(-1em)
     preface 
-
-    align(right)[_ #authors.map(v=>v.name).join("\n") _]
+    let auth = if type(authors) == "string"{
+        authors
+      }else{
+        authors.join("\n")
+      }
+    align(right)[_ #auth _]
 
     pagebreak(weak: true)
   }else{
