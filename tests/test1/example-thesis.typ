@@ -4,22 +4,24 @@
   // Your title goes here
   title: "Doing some very fancy and complicated testing for some new and innovative thing",
 
+  subtitle: "With a subtitle",
+
   // Give or only the year you started in (eg: 2024), or a tuple with the start and end year (eg: (2024, 2040))
-  academic-year: (2023, 2024),
+  academic-year: 2024,
 
   // Change to the correct subtitle, i.e. "Tesi di Laurea Triennale",
   // "Master's Thesis", "PhD Thesis", etc.
   // subtitle: "Master's Thesis",
 
   // Change to the name(s) of the author(s)
-  authors: ("john doe", "and some"),
+  authors: ("Een Auteur", "and some"),
 
   // Change to the name(s) of the promotor(s)
   promotors: ("A first guy", "some other guy"),
 
   // Add as many co-supervisors as you needthe entry
   // if none are needed
-  evaluators: ("idk", "someone else"),
+  assessors: ("idk", "someone else"),
 
   // Change to your supervisor's name
   // remove if none are needed
@@ -28,17 +30,16 @@
   ),
 
   // Customize with your own faculty and degree
-  affiliation: (
+  degree: (
     elective: "Software engineering",
-    degree: "Computer science",
+    master: "Computer science",
     color: (0, 0, 1, 0)
   ),
 
   // Change to "nl" for the Dutch template
-  lang: "en",
+  language: "en",
+  font-size: 11pt,
 
-  // University logo
-  logo: "../../../resources/logokuleng.svg",
 
   // set to true to remove extra title-page and have normal margins
   electronic-version:true,
@@ -65,4 +66,4 @@
 // I suggest adding each chapter in a separate typst file under the
 // `chapters` directory, and then importing them here.
 #include("sections/chapter1.typ")
-#include "sections/chapter2.typ"
+// #include "sections/chapter2.typ"

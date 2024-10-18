@@ -1,4 +1,3 @@
-#import "../../page-utils.typ"
 #let insert-abstract(abstract, lang:"en") = context {
   heading(
     level: 1,
@@ -11,8 +10,7 @@
     }
   )
   if abstract != none {
-  abstract
-  pagebreak(weak: true)
+    abstract
   }else{
     let t = if lang == "nl"{
       "PLAATSHOUDER VOOR SAMENVATTING"

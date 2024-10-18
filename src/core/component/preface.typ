@@ -20,8 +20,6 @@
         authors.join("\n")
       }
     align(right)[_ #auth _]
-
-    pagebreak(weak: true)
   }else{
     let t = if lang == "nl"{
       "PLAATSHOUDER VOOR VOORWOORD"

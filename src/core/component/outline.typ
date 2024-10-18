@@ -1,4 +1,4 @@
-#let insert-outline(non-odd-page-headers, lang: "en") = {
+#let insert-outline(lang: "en") = {
   // Table of contents
   // Outline customization
   let outline-color = red.darken(10%)

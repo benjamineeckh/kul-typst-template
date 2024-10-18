@@ -1,1 +1,0 @@
-#import "@preview/hydra:0.5.1": hydra
