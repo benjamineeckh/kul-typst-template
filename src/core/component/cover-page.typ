@@ -60,17 +60,23 @@
           text(1.5em, weight: 300, subtitle)
         }
         #v(40pt)
+        #block(height: 67pt)[
         #text(1.4em)[#authors.join("\n")]
+
+        ]
       ]
       
-      v(30pt)
+      set text(size: 12pt)
+      // v(30pt)
       set align(right)
       // promotors, evaluators, supervisors
       // width should be 50% of the text box, don't know how to do it in typst
-      block(width: 40%)[
+      block(width: 45%)[
         #[
-          #set text(size: 11pt)
-          #submission-text(degree.master, degree.elective).at(lang)
+          #par(leading: 5pt)[
+          #submission-text(degree.master, degree.elective).at(if english-master {"en"} else {"nl"})
+
+          ]
         ]
 
         #if promotors == none{
@@ -82,8 +88,11 @@
           }else{
             [*Promotor*#if promotors.len() > 1 {[*en*]}: #linebreak()]
           }
-          promotors.join(linebreak())
-          linebreak()
+          par(leading: 5pt, )[
+            // #v(-0.6em)
+            #promotors.join(linebreak())
+          ]
+          // linebreak()
         }
         #if not cover{
           if evaluators == none{
@@ -94,8 +103,11 @@
             }else{
               [*Evaluator*#if evaluators.len() > 1 {[*en*]}: #linebreak()]
             }
-            evaluators.join(linebreak())
-            linebreak()
+          par(leading: 5pt, )[
+            // #v(-0.6em)
+            #evaluators.join(linebreak())
+          ]
+            // linebreak()
           }
 
           if supervisors == none{
@@ -106,7 +118,10 @@
             }else{
               [*Begeleider*#if supervisors.len() > 1 {[*s*]}: #linebreak()]
             }
-            supervisors.join(linebreak())
+          par(leading: 5pt, )[
+            // #v(-0.6em)
+            #supervisors.join(linebreak())
+          ]
           }
         }
       ]

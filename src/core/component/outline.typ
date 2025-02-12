@@ -1,3 +1,6 @@
+/// Inserts outline
+/// - lang (string): language for the oultine, "en" or "nl" allowed
+/// -> content
 #let insert-outline(lang: "en") = {
   // Table of contents
   // Outline customization
@@ -9,8 +12,8 @@
     [ ]
     box(width: 1fr, it.fill)
     [ ]
-    box(
-      width: measure[9999].width,
+    context box(
+      width: measure[999].width,
       align(right, it.page),
     )
   }
@@ -34,5 +37,5 @@
   }else{
     "Contents"
   }
-  outline(title: title, depth: 2, indent: true, fill:repeat("  .  "))
+  outline(title: title, depth: 2, indent: true, fill:repeat(" . "))
 }

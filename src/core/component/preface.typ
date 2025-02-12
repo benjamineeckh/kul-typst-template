@@ -1,3 +1,8 @@
+/// inserts preface
+/// - preface (content): The actual preface content to insert
+/// - authors (array): Array of authors
+/// - lang (string): The language of the preface, should be "en" or "nl"
+/// -> content
 #let insert-preface(preface, authors, lang:"en") = {
   // preface
   if preface != none {
@@ -14,11 +19,7 @@
     block[#sym.zws#label("start-of-preamble")]
     v(-1em)
     preface 
-    let auth = if type(authors) == "string"{
-        authors
-      }else{
-        authors.join("\n")
-      }
+    let auth = authors.join("\n")
     align(right)[_ #auth _]
   }else{
     let t = if lang == "nl"{

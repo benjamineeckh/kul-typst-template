@@ -2,9 +2,9 @@
 
 #show: template.with(
   // Your title goes here
-  title: "Doing some very fancy and complicated testing for some new and innovative thing",
+  title: "Doing some very fancy and complicated testing for some new and innovative thing bla",
 
-  subtitle: "With a subtitle",
+  // subtitle: "With a subtitle",
 
   // Give or only the year you started in (eg: 2024), or a tuple with the start and end year (eg: (2024, 2040))
   academic-year: 2024,
@@ -14,7 +14,7 @@
   // subtitle: "Master's Thesis",
 
   // Change to the name(s) of the author(s)
-  authors: ("Een Auteur", "and some"),
+  authors: ("Een Auteur", "en nummer twee"),
 
   // Change to the name(s) of the promotor(s)
   promotors: ("A first guy", "some other guy"),
@@ -29,19 +29,20 @@
     "Some supervisor",
   ),
 
-  // Customize with your own faculty and degree
+  // Customize with your own faculty and degree (should be in dutch if you are doing the dutch master)
   degree: (
     elective: "Software engineering",
-    master: "Computer science",
+    master: "Computerwetenschappen",
     color: (0, 0, 1, 0)
   ),
 
   // Change to "nl" for the Dutch template
   language: "en",
+  english-master: false,
   font-size: 11pt,
 
 
-  // set to true to remove extra title-page and have normal margins
+  // set to true to remove extra title-page and have non-changing margins
   electronic-version:true,
 
   // Hayagriva bibliography is the default one, if you want to use a
@@ -51,15 +52,10 @@
   // Preface text
   preface: lorem(200),
   // Abstract text
-  abstract: lorem(400),
-
-  // Add as many keywords as you need, or remove the entry if none
-  // are needed
-  // keywords: lorem(20)
+  abstract: [#lorem(150)#linebreak()#lorem(100)#linebreak()#lorem(120)#linebreak()#lorem(120)#linebreak()#lorem(120)#linebreak()],
 
   // pre-body-page:true,
 )
-
 // Insert an empty page if the preamble (pages with a "i" numbering) end on an uneven page.
 // This does not currently work yet automatically (comment if not needed)
 // #page(footer: none, header: none, numbering: none)[]

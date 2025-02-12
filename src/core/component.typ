@@ -6,3 +6,4 @@
 #import "component/keywords.typ": insert-keywords
 #import "component/preface.typ": insert-preface
 #import "component/outline.typ": insert-outline
+#import "component/figure-outline.typ": insert-figure-outline

@@ -11,6 +11,7 @@
   )
   if abstract != none {
     abstract
+
   }else{
     let t = if lang == "nl"{
       "PLAATSHOUDER VOOR SAMENVATTING"
