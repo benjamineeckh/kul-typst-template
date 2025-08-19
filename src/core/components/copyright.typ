@@ -1,4 +1,4 @@
-#import "../assets/text-blobs.typ": copyright
+#import "../../assets/text-blobs.typ": copyright
 /// inserts the copyright page
 /// -> content
 #let insert-copyright(

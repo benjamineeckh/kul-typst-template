@@ -1,4 +1,4 @@
-#import "../assets/text-blobs.typ": submission-text
+#import "../../assets/text-blobs.typ": submission-text
 #let generate-year(academic-year) = [
   #if type(academic-year) == array {
     [#academic-year.at(0) #sym.dash.en #academic-year.at(1)]
