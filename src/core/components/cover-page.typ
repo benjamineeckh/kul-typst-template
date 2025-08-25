@@ -40,10 +40,10 @@
   // diferent scope so logo and font don't get copied over to all the other pages
   let logo
   if lang == "en" {
-    logo = image("../assets/logokuleng.svg")
+    logo = image("../../assets/logokuleng.svg")
   } else if lang == "nl" {
     //TODO: add dutch logo
-    logo = image("../assets/logokuleng.svg")
+    logo = image("../../assets/logokuleng.svg")
   } else {
     panic("language not supported")
   }
