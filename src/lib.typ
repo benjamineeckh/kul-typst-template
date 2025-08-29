@@ -1,5 +1,6 @@
 #import "assets/text-blobs.typ": copyright, submission-text
 #import "core/component.typ"
+#import "core/utils.typ"
 // #import "core/page-utils.typ"
 #import "@preview/tidy:0.4.1"
 
@@ -129,12 +130,15 @@
   set page(
     numbering: (num, ..) => {
       if num <= locate(<end-of-preamble>).page() {
+        // subtract 2 for header page + copyright notice
         numbering("i", num - 2)
       } else {
-        numbering("1", num - 3 + 2 - locate(<end-of-preamble>).page())
+        // TODO: check if this is actually correct
+        numbering("1", num - locate(<end-of-preamble>).page())
       }
     },
-    margin: 28mm,
+    margin: (left: 28mm, right: 28mm, bottom: 35mm),
+    header: context utils.custom-header(),
   )
 
   // header stuff
@@ -220,8 +224,14 @@
   ]
   show heading.where(level: 3): it => block(width: 100%)[
     #set text(1em, weight: "bold")
-    #pad(top: 0.8em, bottom: 0.8em)[
+    #pad(top: 0.5em, bottom: 0.5em)[
       #numbering(chapter-numbering, ..counter(heading).get()) #it.body
+    ]
+  ]
+  show heading.where(level: 4): it => block(width: 100%)[
+    #set text(1em, weight: "bold")
+    #pad(top: 0em, bottom: 0.5em)[
+      #it.body
     ]
   ]
 
