@@ -64,10 +64,10 @@
     let location = it.element.location()
     let number = context {
       let chapter-number = counter(heading).at(location).at(0)
-      let figure-number = it.element.caption.counter.at(location).at(0)
-      (
+      if it.element.caption != none {
+        let figure-number = it.element.caption.counter.at(location).at(0)
         numbering("1.1", chapter-number, figure-number)
-      )
+      } else { "" }
     }
     link(
       location,
