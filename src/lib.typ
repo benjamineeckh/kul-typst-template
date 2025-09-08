@@ -77,7 +77,7 @@
   set par(first-line-indent: 1em, spacing: 0.65em, justify: true)
 
   /////////////////////////// Heading config
-  // C`++`onfigure headings
+  // Configure headings
   set heading(numbering: "1.1.1")
   show heading.where(level: 1): it => [
     #pagebreak(weak: true)
@@ -139,6 +139,7 @@
     },
     margin: (left: 28mm, right: 28mm, bottom: 35mm),
     header: context utils.custom-header(),
+    footer: context utils.custom-footer(),
   )
 
   // header stuff
@@ -234,6 +235,27 @@
       #it.body
     ]
   ]
+  /////////////////////////// show rules
+  // citations
+
+
+  show ref: it => {
+    let el = it.element
+    if el != none {
+      // All other references in the document, such as figures
+      show regex("\d(\.\d)*|[A-Z] |[A-Z](\.\d)+"): it => {
+        text(red)[#it]
+      }
+      it
+    } else {
+      // Bibliography reference
+      show regex("\d"): it => {
+        text(green.lighten(20%))[#it]
+      }
+      it
+    }
+  }
+  // references
 
   // [#metadata(none) <start-of-preamble>]
   body
