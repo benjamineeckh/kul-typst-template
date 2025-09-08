@@ -1,18 +1,18 @@
 # for a description of available keys, see https://github.com/typst/packages/?tab=readme-ov-file#package-format
 
 [package]
-name = "kuleuven-engineering-science-thesis"
+name = "cw-thesis-kul"
 version = "0.1.0"
 entrypoint = "src/lib.typ"
 authors = ["Benjamin Eeckhout <https://github.com/benjamineeckh>"]
 license = "MIT"
-description = "thesis template for engineering science at KU Leuven"
+description = "Master's thesis for engineering science (computer science) at KU Leuven"
 # homepage = ""
 repository = "https://github.com/benjamineeckh/kul-typst-template"
 keywords = ["thesis", "KU Leuven", "Katholieke Universiteit Leuven", "masterthesis"]
 categories = ["thesis"]
 # disciplines = []
-compiler = ""
+compiler = "0.13"
 exclude = [
 	".github",
 	"docs",
