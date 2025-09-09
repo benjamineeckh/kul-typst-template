@@ -10,7 +10,6 @@
       counter(page).at(here()).at(0)
     )]],
     header: none,
-    margin: (bottom: 50mm),
   )[
     #set align(center)
     #v(40%)
