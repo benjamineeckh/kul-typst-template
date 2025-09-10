@@ -127,26 +127,38 @@
   component.insert-copyright(english-master, language)
 
   // numbering setup + header + footer
+  // TODO: fix margins for RL pages
+  let margin = if font-size == 11 {
+    // default
+  } else {}
   set page(
+    paper: "a4",
     numbering: (num, ..) => {
-      if num <= locate(<end-of-preamble>).page() {
-        // subtract 2 for header page + copyright notice
-        numbering("i", num - 2)
-      } else {
-        // TODO: check if this is actually correct
-        numbering("1", num - locate(<end-of-preamble>).page())
-      }
+      // subtract 2 for header page + copyright notice
+      numbering("i", num - 2)
     },
-    margin: (left: 28mm, right: 28mm, bottom: 35mm),
+    // numbering: (num, ..) => {
+    //   if num <= locate(<end-of-preamble>).page() {
+    //     // subtract 2 for header page + copyright notice
+    //     numbering("i", num)
+    //   } else {
+    //     // TODO: check if this is actually correct
+    //     // NOTE: as a result of this the `pagebreak` needs to be `to:"even"`, otherwise numbering will be off
+    //     numbering("1", num - locate(<end-of-preamble>).page())
+    //   }
+    // },
+    margin: (left: 28mm, right: 28mm, bottom: 45mm, top: 37mm),
     header: context utils.custom-header(),
     footer: context utils.custom-footer(),
+    // header-ascent: 10mm,
+    footer-descent: 15%,
   )
 
   // header stuff
   show heading.where(level: 1): it => {
     pagebreak(weak: true)
-    pad(top: 38mm, bottom: 19mm, {
-      set text(1.45em, weight: "bold")
+    pad(top: 19mm, bottom: 19mm, {
+      set text(1.55em, weight: "bold")
       it.body
     })
   }
@@ -173,59 +185,40 @@
   }
 
   [#metadata(none) <end-of-preamble>]
-
+  set page(numbering: "1")
+  counter(page).update(1)
   let chapter-numbering = "1.1.1"
   set heading(supplement: "Chapter")
   set heading(numbering: chapter-numbering)
+  /////////////////////////// show rules
   show heading.where(level: 1): it => {
-    counter(figure.where(kind: image)).update(0)
-    counter(figure.where(kind: table)).update(0)
-    counter(figure.where(kind: raw)).update(0)
-    (
-      [#metadata(none) <heading-page>]
-        + [
+    pagebreak(weak: true, to: "odd")
+    block[
+      #pad(top: 25mm, text(
+        size: 1.3em,
+        weight: "semibold",
+      )[
+        #it.supplement #numbering(
+          it.numbering,
+          counter(heading).at(here()).at(0),
+        )
+      ])
+      #pad(top: 1em, bottom: 2em, text(
+        size: 1.7em,
+      )[#it.body])
 
-          #pagebreak(weak: true, to: "odd")
-          #block[
-            #pad(top: 35mm, text(
-              size: 1.3em,
-              weight: "semibold",
-            )[
-              #it.supplement #counter(heading).at(here()).at(0)
-            ])
-            #pad(top: 1em, bottom: 2em, text(size: 1.7em)[#it.body])
-
-          ]
-        ]
-    )
-    // + [
-    //   #pagebreak(weak: true, to: "odd")
-    //   #block[
-    //     #pad(top: 25mm, text(
-    //       size: 1.3em,
-    //       weight: "semibold",
-    //     )[#it.supplement #numbering(
-    //     it.
-    //         it.numbering,
-    //         counter(heading).get().first(),
-    //       )])
-    //     #pad(top: 4mm, bottom: 17mm, {
-    //       set text(1.5em, weight: "bold")
-    //       it.body
-    //     })
-    //   ]
-    // ]
+    ]
   }
 
   show heading.where(level: 2): it => block(width: 100%)[
     #set text(1.1em, weight: "bold")
-    #pad(top: 0.8em, bottom: 0.8em)[
+    #pad(top: 0.4em, bottom: 0.8em)[
       #numbering(chapter-numbering, ..counter(heading).get()) #it.body
     ]
   ]
   show heading.where(level: 3): it => block(width: 100%)[
     #set text(1em, weight: "bold")
-    #pad(top: 0.5em, bottom: 0.5em)[
+    #pad(top: 0.2em, bottom: 0.5em)[
       #numbering(chapter-numbering, ..counter(heading).get()) #it.body
     ]
   ]
@@ -235,10 +228,17 @@
       #it.body
     ]
   ]
-  /////////////////////////// show rules
+  show pagebreak.where(to: "odd", weak: true): set page(
+    header: none,
+    footer: none,
+  )
+  show pagebreak.where(to: "even", weak: true): set page(
+    header: none,
+    footer: none,
+  )
+
+
   // citations
-
-
   show ref: it => {
     let el = it.element
     if el != none {
@@ -256,8 +256,13 @@
     }
   }
   // references
-
-  // [#metadata(none) <start-of-preamble>]
+  // let chapters = context query(
+  //   heading.where(
+  //     level: 1,
+  //     outlined: true,
+  //   ),
+  // ).filter(head => head.location().page() >= locate(<end-of-preamble>).page())
+  // chapters
   body
 
   if appendices != none {
