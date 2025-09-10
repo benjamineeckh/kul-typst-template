@@ -137,16 +137,6 @@
       // subtract 2 for header page + copyright notice
       numbering("i", num - 2)
     },
-    // numbering: (num, ..) => {
-    //   if num <= locate(<end-of-preamble>).page() {
-    //     // subtract 2 for header page + copyright notice
-    //     numbering("i", num)
-    //   } else {
-    //     // TODO: check if this is actually correct
-    //     // NOTE: as a result of this the `pagebreak` needs to be `to:"even"`, otherwise numbering will be off
-    //     numbering("1", num - locate(<end-of-preamble>).page())
-    //   }
-    // },
     margin: (left: 28mm, right: 28mm, bottom: 45mm, top: 37mm),
     header: context utils.custom-header(),
     footer: context utils.custom-footer(),
@@ -184,7 +174,6 @@
     component.insert-abbrv-symbol-outline(lang: language)
   }
 
-  [#metadata(none) <end-of-preamble>]
   set page(numbering: "1")
   counter(page).update(1)
   let chapter-numbering = "1.1.1"
@@ -255,14 +244,6 @@
       it
     }
   }
-  // references
-  // let chapters = context query(
-  //   heading.where(
-  //     level: 1,
-  //     outlined: true,
-  //   ),
-  // ).filter(head => head.location().page() >= locate(<end-of-preamble>).page())
-  // chapters
   body
 
   if appendices != none {
