@@ -14,7 +14,7 @@
   // Table of contents
   // Outline customization
   show outline.entry: it => {
-    let weight = if it.element.level == 1 { 800 } else { 500 }
+    let weight = if it.element.level == 1 { 900 } else { 500 }
     let fill = if it.element.level != 1 {
       repeat(gap: 0.5em)[.]
     } else { [] }
@@ -27,7 +27,7 @@
     // TOOD: fix indentation of numbered items
     link(
       it.element.location(),
-      it.indented(text(red)[#it.prefix()], rest),
+      it.indented(text(red, weight: weight)[#it.prefix()], rest),
     )
   }
   show outline: set heading(numbering: none, outlined: false)
@@ -48,7 +48,7 @@
     //TODO: fix numbers being at the bottom when there are long names
     let fill = repeat(gap: 0.5em)[.]
     let rest = box(width: 100%)[
-      #text(red)[#it.body()]
+      #text(red, weight: 500)[#it.body()]
       #h(1em)
       #box(width: 1fr, fill)
       #create-page-number(it)
@@ -62,10 +62,11 @@
         numbering("1.1", chapter-number, figure-number)
       } else { "" }
     }
+    // TODO: add spacing for images with number "N.1"
     link(
       location,
       it.indented(
-        text(red)[#number],
+        text(red, weight: 500)[#number],
         rest,
       ),
     )
@@ -74,21 +75,21 @@
   show outline.entry.where(level: 1): set block(above: 1.1em)
   graph-outline(
     title: title,
-    target: target,
+    target: figure.where(kind: target),
   )
 }
 #let insert-listing-outline(lang: "en") = {
   let title = if lang == "en" { "List of Listings" } else {
     "Lijst van code"
   }
-  let target = figure.where(kind: raw)
+  let target = raw
   insert-figure-outline(title, target: target)
 }
 #let insert-image-outline(lang: "en") = {
   let title = if lang == "en" { "List of Figures" } else {
     "Lijst van Figuren"
   }
-  let target = figure.where(kind: image)
+  let target = image
   insert-figure-outline(title, target: target)
 }
 #let insert-abbrv-symbol-outline(

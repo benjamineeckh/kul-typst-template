@@ -186,6 +186,7 @@
   /////////////////////////// show rules
   show heading.where(level: 1): it => {
     pagebreak(weak: true, to: "odd")
+    context counter(figure.where(kind: image)).update(0)
     block[
       #pad(top: 25mm, text(
         size: 1.3em,
