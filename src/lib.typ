@@ -54,9 +54,12 @@
   /// Whether to automatically add a list of figures
   /// -> bool
   list-of-figures: false,
-  /// Whether to automatically add a list of figures
+  /// Whether to automatically add a list of abbreviations
   /// -> bool
   list-of-abbreviations-and-symbols: false,
+  /// Whether to automatically add a list of listings (code blocks)
+  /// -> bool
+  list-of-listings: false,
   /// the size of the text, can choose between 10pt and 11pt.
   /// -> pt
   font-size: 11pt,
@@ -64,7 +67,7 @@
   /// -> content
   bibliography: none,
   /// The appendiceses
-  /// -> (content, )
+  /// -> content
   appendices: none,
   /// automatically inserted content of the thesis.
   /// -> content
@@ -159,7 +162,7 @@
   component.insert-preface(preface, authors, lang: language)
 
   // outline
-  component.insert-outline(lang: language)
+  component.insert-heading-outline(lang: language)
 
   // abstract
   component.insert-abstract(abstract, lang: language)
@@ -169,7 +172,8 @@
     component.insert-abstract(dutch-summary, lang: "nl")
   }
 
-  if list-of-figures { component.insert-figure-outline(lang: language) }
+  if list-of-figures { component.insert-image-outline(lang: language) }
+  if list-of-listings { component.insert-listing-outline(lang: language) }
   if list-of-abbreviations-and-symbols {
     component.insert-abbrv-symbol-outline(lang: language)
   }

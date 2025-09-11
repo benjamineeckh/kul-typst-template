@@ -10,7 +10,7 @@
 /// Inserts outline
 /// - lang (string): language for the oultine, "en" or "nl" allowed
 /// -> content
-#let insert-outline(lang: "en") = {
+#let insert-heading-outline(lang: "en") = {
   // Table of contents
   // Outline customization
   show outline.entry: it => {
@@ -40,17 +40,10 @@
   outline(title: title, depth: 2)
 }
 
-#let insert-figure-outline(lang: "en") = {
+#let insert-figure-outline(title, target: image) = {
   // Table of contents
   // Outline customization
   show outline.entry: it => {
-    // (it.element.numbering)(it.element.counter)
-    // let rest = (
-    //   text(red, weight: 800)[#it.element.caption.body]
-    //     + h(1em)
-    //     + box(width: 1fr, repeat(gap: 0.5em, [.]))
-    //     + create-page-number(it)
-    // )
     //TODO: fix long heading/figure names resulting in weird looking outlines
     //TODO: fix numbers being at the bottom when there are long names
     let fill = repeat(gap: 0.5em)[.]
@@ -80,11 +73,23 @@
   show outline: set heading(numbering: none, outlined: false)
   show outline.entry.where(level: 1): set block(above: 1.1em)
   graph-outline(
-    title: if lang == "en" { "List of Figures" } else {
-      "Lijst van Figuren"
-    },
-    target: figure,
+    title: title,
+    target: target,
   )
+}
+#let insert-listing-outline(lang: "en") = {
+  let title = if lang == "en" { "List of Listings" } else {
+    "Lijst van code"
+  }
+  let target = figure.where(kind: raw)
+  insert-figure-outline(title, target: target)
+}
+#let insert-image-outline(lang: "en") = {
+  let title = if lang == "en" { "List of Figures" } else {
+    "Lijst van Figuren"
+  }
+  let target = figure.where(kind: image)
+  insert-figure-outline(title, target: target)
 }
 #let insert-abbrv-symbol-outline(
   lang: "en",
