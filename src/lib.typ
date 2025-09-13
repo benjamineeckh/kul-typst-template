@@ -82,11 +82,6 @@
   /////////////////////////// Heading config
   // Configure headings
   set heading(numbering: "1.1.1")
-  show heading.where(level: 1): it => [
-    #pagebreak(weak: true)
-    #set text(1.2em, weight: "bold")
-    #it
-  ]
 
   /////////////////////////// figure numbering
   set figure(numbering: it => context {
@@ -154,6 +149,25 @@
       set text(1.55em, weight: "bold")
       it.body
     })
+  }
+
+
+  // citations
+  show ref: it => {
+    let el = it.element
+    if el != none {
+      // All other references in the document, such as figures
+      show regex("\d(\.\d)*|[A-Z] |[A-Z](\.\d)+"): it => {
+        text(red)[#it]
+      }
+      it
+    } else {
+      // Bibliography reference
+      show regex("\d"): it => {
+        text(rgb("#00ff00"))[#it]
+      }
+      it
+    }
   }
 
   let spacing = 0.5em
@@ -231,24 +245,6 @@
     footer: none,
   )
 
-
-  // citations
-  show ref: it => {
-    let el = it.element
-    if el != none {
-      // All other references in the document, such as figures
-      show regex("\d(\.\d)*|[A-Z] |[A-Z](\.\d)+"): it => {
-        text(red)[#it]
-      }
-      it
-    } else {
-      // Bibliography reference
-      show regex("\d"): it => {
-        text(green.lighten(20%))[#it]
-      }
-      it
-    }
-  }
   body
 
   if appendices != none {

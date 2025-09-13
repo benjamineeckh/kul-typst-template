@@ -4,8 +4,9 @@
 }
 #let create-page-number(it) = box(
   width: 2.5em,
-  align(right, it.page()),
+  align(right + top, it.page()),
 )
+#let format-body-with-page(body, number) = {}
 
 /// Inserts outline
 /// - lang (string): language for the oultine, "en" or "nl" allowed
@@ -22,6 +23,8 @@
       text(red, weight: weight)[#it.body()]
         + h(1em)
         + box(width: 1fr, fill)
+        + sym.space
+        + sym.wj
         + create-page-number(it)
     )
     // TOOD: fix indentation of numbered items
@@ -47,13 +50,15 @@
     //TODO: fix long heading/figure names resulting in weird looking outlines
     //TODO: fix numbers being at the bottom when there are long names
     let fill = repeat(gap: 0.5em)[.]
-    let rest = box(width: 100%)[
-      #text(red, weight: 500)[#it.body()]
-      #h(1em)
-      #box(width: 1fr, fill)
-      #create-page-number(it)
-      // + [#it.element.fields()]
-    ]
+    let rest = (
+      text(red, weight: 500)[#it.body()]
+        + h(1em)
+        + box(width: 1fr, fill)
+        + sym.space
+        + sym.wj
+        + create-page-number(it)
+    )
+    // + [#it.element.fields()]
     let location = it.element.location()
     let number = context {
       let chapter-number = counter(heading).at(location).at(0)
