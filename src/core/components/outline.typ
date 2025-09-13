@@ -25,7 +25,7 @@
         + box(width: 1fr, fill)
         + sym.space
         + sym.wj
-        + create-page-number(it)
+        + text(weight: weight)[ #create-page-number(it) ]
     )
     // TOOD: fix indentation of numbered items
     link(
@@ -95,38 +95,3 @@
   }
   insert-figure-outline(title, target: image)
 }
-// TODO: idk, is kinda wonky to use
-#let insert-abbrv-symbol-outline(
-  lang: "en",
-  abbreviations: none,
-  symbols: none,
-) = {
-  let title = if lang == "en" {
-    "List of Abbreviations and Symbols"
-  } else {
-    "Lijst van Afkortingen en Symbolen"
-  }
-  let abbrv = if lang == "en" {
-    "Afkortingen"
-  } else {
-    "Abbreviations"
-  }
-
-  let symb = if lang == "en" {
-    "Symbolen"
-  } else {
-    "Symbols"
-  }
-
-  heading(bookmarked: true, level: 1, title)
-  if abbreviations != none {
-    text(black, weight: "bold", size: 1.3em)[#abbrv]
-    abbreviations
-  }
-
-  if symbols != none {
-    text(black, weight: "bold", size: 1.3em)[#symb]
-    symbols
-  }
-}
-

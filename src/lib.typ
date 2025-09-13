@@ -129,9 +129,6 @@
 
   // numbering setup + header + footer
   // TODO: fix margins for RL pages
-  let margin = if font-size == 11 {
-    // default
-  } else {}
   set page(
     paper: "a4",
     numbering: (num, ..) => {
