@@ -87,16 +87,15 @@
   let title = if lang == "en" { "List of Listings" } else {
     "Lijst van code"
   }
-  let target = raw
-  insert-figure-outline(title, target: target)
+  insert-figure-outline(title, target: raw)
 }
 #let insert-image-outline(lang: "en") = {
   let title = if lang == "en" { "List of Figures" } else {
     "Lijst van Figuren"
   }
-  let target = image
-  insert-figure-outline(title, target: target)
+  insert-figure-outline(title, target: image)
 }
+// TODO: idk, is kinda wonky to use
 #let insert-abbrv-symbol-outline(
   lang: "en",
   abbreviations: none,
@@ -107,33 +106,27 @@
   } else {
     "Lijst van Afkortingen en Symbolen"
   }
-  if abbreviations != none or symbols != none {
-    heading(bookmarked: true, level: 1, title)
-    if abbreviations != none {
-      heading(
-        bookmarked: false,
-        level: 2,
-        if lang == "en" {
-          "List of Abbreviations and Symbols"
-        } else {
-          "Lijst van Afkortingen en Symbolen"
-        },
-      )
-      abbreviations
-    }
+  let abbrv = if lang == "en" {
+    "Afkortingen"
+  } else {
+    "Abbreviations"
+  }
 
-    if symbols != none {
-      heading(
-        bookmarked: false,
-        level: 2,
-        if lang == "en" {
-          "List of Abbreviations and Symbols"
-        } else {
-          "Lijst van Afkortingen en Symbolen"
-        },
-      )
-      abbreviations
-    }
+  let symb = if lang == "en" {
+    "Symbolen"
+  } else {
+    "Symbols"
+  }
+
+  heading(bookmarked: true, level: 1, title)
+  if abbreviations != none {
+    text(black, weight: "bold", size: 1.3em)[#abbrv]
+    abbreviations
+  }
+
+  if symbols != none {
+    text(black, weight: "bold", size: 1.3em)[#symb]
+    symbols
   }
 }
 

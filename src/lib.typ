@@ -51,12 +51,15 @@
   /// (optional) Summary needed if writing a English thesis for the Dutch master.
   /// -> content
   dutch-summary: none,
+  /// List of abbreviations
+  /// -> content
+  abbreviations: none,
+  /// List of symbols
+  /// -> content
+  symbols: none,
   /// Whether to automatically add a list of figures
   /// -> bool
   list-of-figures: false,
-  /// Whether to automatically add a list of abbreviations
-  /// -> bool
-  list-of-abbreviations-and-symbols: false,
   /// Whether to automatically add a list of listings (code blocks)
   /// -> bool
   list-of-listings: false,
@@ -188,8 +191,12 @@
 
   if list-of-figures { component.insert-image-outline(lang: language) }
   if list-of-listings { component.insert-listing-outline(lang: language) }
-  if list-of-abbreviations-and-symbols {
-    component.insert-abbrv-symbol-outline(lang: language)
+  if abbreviations != none or symbols != none {
+    component.insert-list-of-abbrv-symbol(
+      lang: language,
+      symbols: symbols,
+      abbreviations: abbreviations,
+    )
   }
 
   set page(numbering: "1")
