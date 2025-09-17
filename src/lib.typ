@@ -196,9 +196,19 @@
     )
   }
 
-  set page(numbering: "1")
-  counter(page).update(1)
   let chapter-numbering = "1.1.1"
+  set page(
+    numbering: (num, ..) => {
+      let starting-heading = query(
+        heading.where(level: 1, numbering: chapter-numbering),
+      )
+        .first()
+        .location()
+        .page()
+      numbering("1", num - starting-heading + 1)
+    },
+  )
+  // counter(page).update(1)
   set heading(supplement: "Chapter")
   set heading(numbering: chapter-numbering)
   /////////////////////////// show rules

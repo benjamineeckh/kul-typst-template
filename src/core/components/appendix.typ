@@ -7,7 +7,7 @@
   pagebreak(weak: true, to: "odd")
   page(
     footer: context [#align(center)[#(
-      counter(page).at(here()).at(0)
+      (here().page-numbering())(here().page())
     )]],
     header: none,
   )[
