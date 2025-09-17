@@ -55,13 +55,13 @@ english-master: false ,
 list-of-figures: true ,
 list-of-listings: false ,
 font-size: 11pt ,
-preface: [The preface] ,
-abstract: [An abstract] ,
-dutch-summary: [A dutch summary] ,
+preface: [#lorem(100)] ,
+abstract: [#lorem(100)] ,
+dutch-summary: [#lorem(100)] ,
 abbreviations: [WIP: Work in progress] ,
 symbols: [$Ohm$:Ohm] ,
 bibliography: include bibliography.bib ,
-appendices: [An appendix] ,
+appendices: [#lorem(100)] ,
 )
 // Put your thesis content here
 ```
