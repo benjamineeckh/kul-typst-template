@@ -47,8 +47,6 @@
   // Table of contents
   // Outline customization
   show outline.entry: it => {
-    //TODO: fix long heading/figure names resulting in weird looking outlines
-    //TODO: fix numbers being at the bottom when there are long names
     let fill = repeat(gap: 0.5em)[.]
     let rest = (
       text(red, weight: 500)[#it.body()]

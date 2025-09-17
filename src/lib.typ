@@ -1,23 +1,19 @@
 #import "assets/text-blobs.typ": copyright, submission-text
 #import "core/component.typ"
 #import "core/utils.typ"
-// #import "core/page-utils.typ"
-#import "@preview/tidy:0.4.1"
 
 /// The function used to instantiate the template for the thesis
-///
-///.
 /// -> content
 #let template(
   /// The title of the thesis.
   /// -> content
-  title: [Thesis bla],
+  title: [A very cool thesis],
   /// subtitle of the thesis.
   /// -> content
   subtitle: none,
   /// the starting year of the thesis or a tuple of years denoting the starting and ending years.
   /// -> int | (array, int)
-  academic-year: 2023,
+  academic-year: datetime.today().year(),
   /// the name(s) of the author .
   /// -> array
   authors: (),
@@ -32,8 +28,12 @@
   supervisors: (),
   /// your studies, should specify (master, elective and color (in hsv)).
   /// -> array
-  degree: (),
-  /// the language of the thesis, supported are "nl" and "en".
+  degree: (
+    master: "Computer Science",
+    elective: "Software engineering",
+    color: (0, 0, 1, 0),
+  ),
+  /// the language of the thesis, supported languages are "nl" and "en".
   /// -> string
   language: "en",
   /// whether to print the document as an electronic version or for printing.
@@ -42,6 +42,15 @@
   /// toggle to notify the template that you don't need any Dutch things.
   /// -> bool
   english-master: false,
+  /// Whether to automatically add a list of figures
+  /// -> bool
+  list-of-figures: false,
+  /// Whether to automatically add a list of listings (code blocks)
+  /// -> bool
+  list-of-listings: false,
+  /// the size of the text, can choose between 10pt and 11pt.
+  /// -> pt
+  font-size: 11pt,
   /// The preface (voorwoord).
   /// -> content
   preface: none,
@@ -57,15 +66,6 @@
   /// List of symbols
   /// -> content
   symbols: none,
-  /// Whether to automatically add a list of figures
-  /// -> bool
-  list-of-figures: false,
-  /// Whether to automatically add a list of listings (code blocks)
-  /// -> bool
-  list-of-listings: false,
-  /// the size of the text, can choose between 10pt and 11pt.
-  /// -> pt
-  font-size: 11pt,
   /// the bibliography.
   /// -> content
   bibliography: none,
