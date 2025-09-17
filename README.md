@@ -1,64 +1,67 @@
 # The `kuleuven-engineering-science-thesis` Package
 <div align="center">Version 0.1.0</div>
 
-Template adapted from [](https://github.com/eduardz1/UniTO-typst-template/tree/main?tab=MIT-1-ov-file#readme) to be used for a master thesis for engineering science at KU Leuven.
-
-## Template adaptation checklist
-
-- [x] Fill out `README.md`
-  - Change the `my-package` package name, including code snippets
-  - Check section contents and/or delete sections that don't apply
-- [x] Check and/or replace `LICENSE` by something that suits your needs
-- [x] Fill out `typst.toml`
-  - See also the [typst/packages README](https://github.com/typst/packages/?tab=readme-ov-file#package-format)
-- [x] Adapt Repository URLs in `CHANGELOG.md`
-  - Consider only committing that file with your first release, or removing the "Initial Release" part in the beginning
-- [x] Adapt or deactivate the release workflow in `.github/workflows/release.yml`
-  - to deactivate it, delete that file or remove/comment out lines 2-4 (`on:` and following)
-  - to use the workflow
-    - [ ] check the values under `env:`, particularly `REGISTRY_REPO`
-    - [ ] if you don't have one, [create a fine-grained personal access token](https://github.com/settings/tokens?type=beta) with [only Contents permission](https://stackoverflow.com/a/75116350/371191) for the `REGISTRY_REPO`
-    - [ ] on this repo, create a secret `REGISTRY_TOKEN` (at `https://github.com/[user]/[repo]/settings/secrets/actions`) that contains the so created token
-
-    if configured correctly, whenever you create a tag `v...`, your package will be pushed onto a branch on the `REGISTRY_REPO`, from which you can then create a pull request against [typst/packages](https://github.com/typst/packages/)
-- [x] remove/replace the example test case
-- [ ] (add your actual code, docs and tests)
-- [ ] remove this section from the README
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on the typst web app. Perhaps a short code example on importing the package and a very simple teaser usage.
-
-```typ
-#import "@preview/my-package:0.1.0": *
-
-#show: my-show-rule.with()
-#my-func()
-```
-
-### Installation
-
-A step by step guide that will tell you how to get the development environment up and running. This should example how to clone the repo and where to (maybe a link to the typst documentation on it), along with any pre-requisite software and installation steps.
-
-```
-$ First step
-$ Another step
-$ Final step
-```
-
+This is an unofficial typst template for doing a thesis at the engineering science faculty at KU Leuven.
+This was made by trying to as closely follow the Latex template [here](https://eng.kuleuven.be/docs/kulemt).
 ## Usage
 
-A more in-depth description of usage. Any template arguments? A complicated example that showcases most if not all of the functions the package provides? This is also an excellent place to signpost the manual.
-
+You can use this template in the web editor by going to "start from template" and searching for "modern-kul-thesis".
+Alternatively, you can use this template locally by running:
 ```typ
-#import "@preview/my-package:0.1.0": *
-
-#let my-complicated-example = ...
+typst init @preview/modern-kul-thesis
 ```
+This will then create a basic folder structure with some fields pre-filled.
 
-## Additional Documentation and Acknowledgments
-
-* Project folder on server:
-* Confluence link:
-* Asana board:
-* etc...
+## Configuration
+- title: The title of the thesis.
+- subtitle: An optional subtitle.
+- academic-year: Can be a starting year (e.g. 2025) or a tuple of start and end year (e.g. 2025,2027)
+- authors: An array of all the authors.
+- promotors: An array of all the promotors.
+- assessors: An array of all the assessors.
+- supervisors: An array of all the supervisors.
+- degree: An array containing: the name of your master, elective and the specified color (default is for computer science).
+- language: "en" or "nl".
+- electronic-version: A boolean toggle to set the thesis as electronic.
+- english-master: A boolean toggle to use the template for the English master.
+- list-of-figures: Toggle to add a list of figures.
+- list-of-listings: Toggle to add a list of listings (code blocks).
+- font-size: Font size toggle.
+- preface: The preface of your thesis goes here.
+- abstract: The abstract of your thesis goes here.
+- dutch-summary: The dutch summary of your thesis goes here.
+- abbreviations: The abbreviations used in your thesis go here.
+- symbols: The symbols used in your thesis go here.
+- bibliography: The bibliography of your thesis goes here.
+- appendices: The appendices of your thesis goes here.
+```typ
+#import "@preview/modern-kul-thesis:0.1.0": template
+#show: template.with(
+title: [The main title] ,
+subtitle: [The subtitle] ,
+academic-year: 2025,
+authors: ("an Author",) ,
+promotors: ("a promotor",) ,
+assessors: ("an assessor",) ,
+supervisors: ("a supervisor",) ,
+degree: (
+    elective: "Software engineering",
+    master: "Computerwetenschappen",
+    color: (0, 0, 1, 0),
+),
+language: "en" ,
+electronic-version: false ,
+english-master: false ,
+list-of-figures: true ,
+list-of-listings: false ,
+font-size: 11pt ,
+preface: [The preface] ,
+abstract: [An abstract] ,
+dutch-summary: [A dutch summary] ,
+abbreviations: [WIP: Work in progress] ,
+symbols: [$Ohm$:Ohm] ,
+bibliography: include bibliography.bib ,
+appendices: [An appendix] ,
+)
+// Put your thesis content here
+```
