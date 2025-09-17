@@ -20,7 +20,7 @@ This will then create a basic folder structure with some fields pre-filled.
 - `promotors`: An array of all the promotors.
 - `assessors`: An array of all the assessors.
 - `supervisors`: An array of all the supervisors.
-- `degree: An array containing`: the name of your master, elective and the specified color (default is for computer science).
+- `degree: An array containing`: the name of your master, elective and the specified color in hsv (default is for computer science).
 - `language`: "en" or "nl".
 - `electronic-version`: A boolean toggle to set the thesis as electronic.
 - `english-master`: A boolean toggle to use the template for the English master.
