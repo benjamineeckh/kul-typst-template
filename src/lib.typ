@@ -8,13 +8,13 @@
   /// The title of the thesis.
   /// -> content
   title: [A very cool thesis],
-  /// subtitle of the thesis.
+  /// An optional subtitle.
   /// -> content
   subtitle: none,
   /// the starting year of the thesis or a tuple of years denoting the starting and ending years.
   /// -> int | (array, int)
   academic-year: datetime.today().year(),
-  /// the name(s) of the author .
+  /// the name(s) of the author.
   /// -> array
   authors: (),
   /// the name of the promotor(s), or a list of authors.
