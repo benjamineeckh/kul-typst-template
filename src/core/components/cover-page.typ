@@ -38,12 +38,31 @@
   lang: "en",
 ) = {
   // diferent scope so logo and font don't get copied over to all the other pages
-  let logo
+  let background-logo
   if lang == "en" {
-    logo = image("../../assets/logokuleng.svg")
+    background-logo = place(
+      top + left,
+      dy: 10mm,
+      dx: 10mm,
+      image(
+        format: "svg",
+        width: 35%,
+        "../../assets/logokuleng.svg",
+      ),
+    )
   } else if lang == "nl" {
     //TODO: add dutch logo
-    logo = image("../../assets/logokuleng.svg")
+    background-logo = place(
+      top + left,
+      dy: 10mm,
+      dx: 10mm,
+      image(
+        format: "svg",
+        width: 30%,
+        "../../assets/logokul.svg",
+      ),
+    )
+    // logo = image("../../assets/logokuleng.svg")
   } else {
     panic("language not supported")
   }
@@ -52,12 +71,7 @@
     header: none,
     numbering: none,
     footer: none,
-    background: place(
-      top + left,
-      dy: 16mm,
-      dx: 10mm,
-      box(width: 100mm, height: 35mm, logo),
-    ),
+    background: background-logo,
   )[
     #{
       set text(
