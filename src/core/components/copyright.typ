@@ -8,18 +8,24 @@
   /// The language of the thesis
   /// -> Str
   lang,
+  /// the name(s) of the author.
+  /// -> array
+  authors,
 ) = {
   // Copyright
   set align(left + bottom)
   set par(justify: true, first-line-indent: 0pt)
   show link: it => [#text(font: "Nimbus Mono PS", weight: 300)[#it]]
   set text(hyphenate: false)
-  copyright.tm + v(2em)
-  if lang == "en" {
-    copyright.en + v(2em)
+
+  let copyright-strings = copyright([#authors.join(" and ")])
+
+  copyright-strings.tm + v(2em)
+  if english-master or lang == "en" {
+    copyright-strings.en + v(2em)
   }
-  if not english-master {
-    copyright.nl
+  else {
+    copyright-strings.nl
   }
 
   // par(first-line-indent: 0pt, leading: 5pt, justify: true)[

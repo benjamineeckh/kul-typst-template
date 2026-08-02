@@ -130,7 +130,7 @@
 
   /////////////////////////// pre-body content
   // copyright
-  component.insert-copyright(english-master, language)
+  component.insert-copyright(english-master, language, authors)
 
   // numbering setup + header + footer
   // TODO: fix margins for RL pages
